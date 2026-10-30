@@ -208,8 +208,6 @@ tiles.forEach((tile,i)=>tile.addEventListener('click',()=>{
 hintSeen={weapon:new Set(saved.hints?.weapon||[]),period:new Set(saved.hints?.period||[])};
 function hintCounts(){return {weapon:hintSeen.weapon.size,period:hintSeen.period.size};}
 function saveHintCounts(){saveProgress();}
-const weaponHints=Object.fromEntries(characters.map(c=>[c.name,c.origin]));
-const periodHints=Object.fromEntries(characters.map(c=>[c.name,c.role]));
 function hint(kind){
  if(selectedHintIndex<0){extra('hintOutput').textContent='先に未回答の「？」マスをタップしてね。';return;}
  const c=characters[selectedHintIndex];if(solved.has(selectedHintIndex)||ended)return;
