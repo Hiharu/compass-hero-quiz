@@ -99,7 +99,7 @@ let ended=false;
 let endReason='';
 let hintSeen={weapon:new Set(),period:new Set()};
 // Progress is saved only in this browser. Keep the same key across future updates.
-const saveKey='compass-hero-quiz-progress-v2';
+const saveKey='compass-hero-quiz-progress-v3';
 let saved={};
 try{saved=JSON.parse(localStorage.getItem(saveKey)||'{}')||{};}catch(e){}
 if(Array.isArray(saved.solved))saved.solved.forEach(i=>{if(Number.isInteger(i)&&i>=0&&i<characters.length)solved.add(i);});
