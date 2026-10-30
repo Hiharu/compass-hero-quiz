@@ -136,6 +136,7 @@ characters.forEach((c,i)=>{
 });
 el('legend').innerHTML=Object.entries(colors).map(([e,color])=>`<span><i class="dot" style="--color:${color}"></i>${e}</span>`).join('');
 function reveal(i,cls){
+ if(cls==='done')tiles[i].classList.remove('partial');
  tiles[i].classList.add(cls);
  const img=tiles[i].querySelector('img');
  img.loading='eager';
