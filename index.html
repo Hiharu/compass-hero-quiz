@@ -42,7 +42,7 @@ button:disabled,input:disabled{opacity:.5}
 .tile:before{content:"";position:absolute;inset:3px;border:1px solid #ffffff28;pointer-events:none;z-index:2}
 .number{position:absolute;top:5px;left:6px;color:#c4d0d3;font:9px Georgia,serif;z-index:3}
 .question{color:#e8e3d6;font:700 clamp(20px,4.5vw,32px) Georgia,serif}
-.tile.done{background:#f3e9d6}
+.tile.partial{background:#e9dfc8}.tile.partial .portrait,.tile.partial .name{display:block}.tile.partial .question{display:none}.tile.done{background:#f3e9d6}
 .tile.revealed{background:#cbd0cf}
 .tile .portrait{display:none;width:100%;height:77%;position:absolute;top:0;left:0;object-fit:cover;object-position:center top}
 .tile .name{display:none;position:absolute;bottom:0;left:0;width:100%;min-height:23%;padding:2px 1px;background:#f5f0e7;color:#263a46;text-align:center;font:600 clamp(8px,2vw,11px)/1.2 -apple-system,"Hiragino Kaku Gothic ProN",sans-serif;overflow-wrap:anywhere;align-content:center}
@@ -81,7 +81,7 @@ footer{text-align:center;color:#8b8c85;font:11px -apple-system,sans-serif;margin
 <div id="statsPanel" class="extra-panel" hidden><div id="statDetails"></div><div id="bestTime" class="extra-note"></div></div>
 <div id="resultPanel" class="extra-panel" hidden><div id="resultSummary"></div><canvas id="resultCanvas" width="960" height="540" class="result-preview" aria-label="結果カード"></canvas><div class="hint-controls"><button id="saveResult" type="button">画像を保存</button></div></div>
 </section>
-<div class="catalog-heading">HERO COLLECTION</div><p style="font:11px -apple-system,sans-serif;color:#79694f;line-height:1.6">※ゲーム内ヒーロー名で回答。フルネームと登録済みの通称、ひらがな読みを受け付けます。画像は攻略Wikiから読み込みます。</p>
+<div class="catalog-heading">HERO COLLECTION</div><p style="font:11px -apple-system,sans-serif;color:#79694f;line-height:1.6">※ゲーム内ヒーロー名で回答。正式名は漢字・カタカナ・ひらがなの読みで回答できます。通称は部分点、正式名まで答えると満点。画像は攻略Wikiから読み込みます。</p>
 <div id="grid" class="grid"></div>
 <div id="legend" class="legend"></div>
 <footer>本サイトは非公式のファン制作クイズです。<br>ヒーロー名・画像等の権利はそれぞれの権利者に帰属します。画像：<a href="https://gamerch.com/compass/" target="_blank" rel="noopener">#コンパス攻略Wiki（Gamerch）</a></footer>
@@ -94,14 +94,16 @@ const el=id=>document.getElementById(id);
 const grid=el('grid');
 const tiles=[];
 const solved=new Set();
+const nicknameSolved=new Set();
 let ended=false;
 let endReason='';
 let hintSeen={weapon:new Set(),period:new Set()};
 // Progress is saved only in this browser. Keep the same key across future updates.
-const saveKey='compass-hero-quiz-progress-v1';
+const saveKey='compass-hero-quiz-progress-v2';
 let saved={};
 try{saved=JSON.parse(localStorage.getItem(saveKey)||'{}')||{};}catch(e){}
 if(Array.isArray(saved.solved))saved.solved.forEach(i=>{if(Number.isInteger(i)&&i>=0&&i<characters.length)solved.add(i);});
+if(Array.isArray(saved.nicknameSolved))saved.nicknameSolved.forEach(i=>{if(Number.isInteger(i)&&i>=0&&i<characters.length)nicknameSolved.add(i);});
 let elapsedBefore=Number.isFinite(saved.elapsed)&&saved.elapsed>=0?saved.elapsed:0;
 let started=0;
 let running=false;
@@ -112,9 +114,11 @@ function startTimer(){
  saveProgress();
 }
 function clockText(ms){const sec=Math.floor(ms/1000);return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');}
-function saveProgress(){try{localStorage.setItem(saveKey,JSON.stringify({solved:[...solved],ended,elapsed:elapsed(),hints:{weapon:[...hintSeen.weapon],period:[...hintSeen.period]},endReason:typeof endReason==='undefined'?'':endReason}));}catch(e){}}
+function saveProgress(){try{localStorage.setItem(saveKey,JSON.stringify({solved:[...solved],nicknameSolved:[...nicknameSolved],ended,elapsed:elapsed(),hints:{weapon:[...hintSeen.weapon],period:[...hintSeen.period]},endReason:typeof endReason==='undefined'?'':endReason}));}catch(e){}}
 
-const normalize=s=>s.normalize('NFKC').trim().replace(/\s+/g,'').toLowerCase().replace(/[ァ-ヶ]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-96));
+const normalize=s=>s.normalize('NFKC').trim().toLowerCase().replace(/[ァ-ヶ]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-96)).replace(/[\s・＝=＝'’"「」『』＆&＋+†<>＜＞＿_\-]/g,'');
+const readings={"十文字 アタリ":["じゅうもんじあたり"],"ジャスティス ハンコック":["じゃすてぃすはんこっく"],"双挽 乃保":["そうびきのほ"],"桜華 忠臣":["おうかただおみ"],"ジャンヌ ダルク":["じゃんぬだるく"],"マルコス'55":["まるこす55","まるこすふぃふてぃーふぁいぶ"],"Voidoll":["ぼいどーる"],"深川 まとい":["ふかがわまとい"],"初音 ミク":["はつねみく"],"春麗":["ちゅんりー"],"マリア=S=レオンブルク":["まりあえすれおんぶるく"],"13 †サーティーン†":["13さーてぃーん","じゅうさんさーてぃーん"],"鏡音 リン":["かがみねりん"],"鏡音 レン":["かがみねれん"],"輝龍院 きらら":["きりゅういんきらら"],"デビルミント鬼龍 デルミン":["でびるみんときりゅうでるみん"],"猫宮 ひなた":["ねこみやひなた"],"岡部 倫太郎":["おかべりんたろう"],"零夜":["れいや"],"ピエール 77世":["ぴえーるななじゅうななせい","ぴえーる77せい"],"佐藤四郎兵衛忠信":["さとうしろうびょうえただのぶ"],"狐ヶ咲 甘色":["きつねがさきあまいろ"],"HM-WA100 ニーズヘッグ":["えいちえむだぶりゅーえーひゃくにーずへっぐ"],"中島 敦":["なかじまあつし"],"芥川 龍之介":["あくたがわりゅうのすけ"],"青春 アリス":["あおはるありす"],"糸廻 輪廻":["いとめぐりりんね"],"Bugdoll":["ばぐどーる"],"2B":["とぅーびー"],"御坂 美琴":["みさかみこと"],"天空王 ぶれいずどらごん":["てんくうおうぶれいずどらごん"],"ロックマン.EXE＆光熱斗":["ろっくまんえぐぜひかりねっと"],"鬼ヶ式 うら":["おにがしきうら"],"上条 当麻":["かみじょうとうま"],"ポプ子＆ピピ美":["ぽぷこぴぴみ"],"一姫":["いちひめ"]};
+characters.forEach(c=>{c.readings=readings[c.name]||[];const forms=[c.name,...c.readings].map(normalize);if(c.nick&&forms.includes(normalize(c.nick)))c.nick='';});
 characters.forEach((c,i)=>{
  const tile=document.createElement('div');
  tile.className='tile';tile.style.setProperty('--element',colors[c.role]);
@@ -142,19 +146,31 @@ function reveal(i,cls){
  img.src=sources[0];
 }
 const publicUrl='https://hiharu.github.io/compass-hero-quiz/';
-function update(){el('count').textContent=`${solved.size} / ${characters.length}`;el('remain').textContent=`残り ${characters.length-solved.size}`;}
+const totalAnswerPoints=characters.length+characters.filter(c=>c.nick).length;
+function currentAnswerPoints(){return characters.reduce((sum,c,i)=>sum+(solved.has(i)?1+(c.nick?1:0):nicknameSolved.has(i)?1:0),0);}
+function update(){const points=currentAnswerPoints();el('count').textContent=`${points} / ${totalAnswerPoints}`;el('remain').textContent=`残り ${totalAnswerPoints-points}`;}
 function finish(){elapsedBefore=elapsed();running=false;ended=true;el('answer').disabled=true;el('submit').disabled=true;el('giveup').disabled=true;saveProgress();}
 el('form').addEventListener('submit',event=>{
  event.preventDefault();if(ended)return;
  const value=normalize(el('answer').value);if(!value)return;
  if(!running)startTimer();
- const fullIndex=characters.findIndex(c=>normalize(c.name)===value);
- const nickIndex=characters.findIndex((c,i)=>c.nick&&normalize(c.nick)===value&&!solved.has(i));
+ const fullIndex=characters.findIndex(c=>normalize(c.name)===value||c.readings.some(r=>normalize(r)===value));
+ const nickIndex=characters.findIndex((c,i)=>c.nick&&normalize(c.nick)===value&&!nicknameSolved.has(i)&&!solved.has(i));
  const nickAnyIndex=characters.findIndex(c=>c.nick&&normalize(c.nick)===value);
- const i=fullIndex>=0?fullIndex:nickIndex;
- if(i<0){if(nickAnyIndex>=0&&solved.has(nickAnyIndex)){el('message').textContent='そのヒーローは回答済みです。';el('answer').value='';return;}el('message').textContent='未登録または不正解です。';return;}
- if(solved.has(i)){el('message').textContent='そのヒーローは回答済みです。';el('answer').value='';return;}
- solved.add(i);reveal(i,'done');saveProgress();el('message').textContent=`正解：${characters[i].name}`;el('answer').value='';update();
+ if(fullIndex>=0){
+  const i=fullIndex;
+  if(solved.has(i)){el('message').textContent='そのヒーローは正式名まで回答済みです。';el('answer').value='';return;}
+  solved.add(i);if(characters[i].nick)nicknameSolved.add(i);
+  reveal(i,'done');el('message').textContent='正式名で正解：'+characters[i].name;
+ }else if(nickIndex>=0){
+  const i=nickIndex;nicknameSolved.add(i);reveal(i,'partial');
+  el('message').textContent='通称で正解。正式名は未回答なので、まだ満点ではありません。';
+ }else{
+  if(nickAnyIndex>=0)el('message').textContent=solved.has(nickAnyIndex)?'そのヒーローは正式名まで回答済みです。':'その通称は回答済みです。正式名を入力すると満点になります。';
+  else el('message').textContent='未登録または不正解です。';
+  el('answer').value='';return;
+ }
+ saveProgress();el('answer').value='';update();
  if(solved.size===characters.length){endReason='clear';finish();el('message').textContent='全問正解！';setTimeout(()=>{renderStats();renderResult();extra('resultPanel').hidden=false;extra('resultPanel').scrollIntoView({behavior:'smooth',block:'start'});},0);}
 });
 el('giveup').addEventListener('click',()=>{
@@ -163,6 +179,7 @@ el('giveup').addEventListener('click',()=>{
  finish();el('message').textContent='終了しました。未回答の名前を表示しています。';setTimeout(()=>{renderStats();renderResult();extra('resultPanel').hidden=false;extra('resultPanel').scrollIntoView({behavior:'smooth',block:'start'});},0);
 });
 // Restore answers and finished state without changing portrait loading logic.
+for(const i of nicknameSolved)if(!solved.has(i))reveal(i,'partial');
 for(const i of solved)reveal(i,'done');
 if(saved.ended){endReason=saved.endReason||'giveup';
  for(let i=0;i<characters.length;i++)if(!solved.has(i))reveal(i,'revealed');
@@ -175,9 +192,9 @@ el('restart').addEventListener('click',()=>{
  if(!confirm('回答と経過時間を消して最初からやり直しますか？'))return;
  // Reset in place: no reload, so a cached page cannot restore old timer state.
  running=false;ended=false;endReason='';elapsedBefore=0;started=0;
- solved.clear();hintSeen.weapon.clear();hintSeen.period.clear();
+ solved.clear();nicknameSolved.clear();hintSeen.weapon.clear();hintSeen.period.clear();
  selectedHintIndex=-1;showOnlyUnsolved=false;
- tiles.forEach(tile=>{tile.classList.remove('done','revealed','selected','hidden-unsolved');});
+ tiles.forEach(tile=>{tile.classList.remove('done','partial','revealed','selected','hidden-unsolved');});
  extra('filterToggle').classList.remove('active');
  ['hintPanel','statsPanel','resultPanel'].forEach(id=>{extra(id).hidden=true;});
  ['weaponOutput','periodOutput'].forEach(id=>{extra(id).hidden=true;});
@@ -224,24 +241,24 @@ function hint(kind){
 }
 extra('weaponHint').onclick=()=>hint('weapon');extra('regionHint').onclick=()=>hint('region');
 function renderStats(){
- const all=characters.length;
+ const all=characters.length,points=currentAnswerPoints();
  const per=Object.keys(colors).map(e=>{const idx=characters.map((c,i)=>c.role===e?i:-1).filter(i=>i>=0);return '<span>'+e+'：'+idx.filter(i=>solved.has(i)).length+' / '+idx.length+'（'+Math.round(idx.filter(i=>solved.has(i)).length/idx.length*100)+'%）</span>';}).join('');
- extra('statDetails').innerHTML='<div class="stat-list"><span>正解：'+solved.size+' / '+all+'</span><span>達成率：'+Math.round(solved.size/all*100)+'%</span>'+per+'</div>';
+ extra('statDetails').innerHTML='<div class="stat-list"><span>正式名正解：'+solved.size+' / '+all+'</span><span>得点：'+points+' / '+totalAnswerPoints+'（'+Math.round(points/totalAnswerPoints*100)+'%）</span>'+per+'</div>';
  extra('statDetails').innerHTML+='<p>区分ヒント '+hintSeen.weapon.size+'回 ／ ロールヒント '+hintSeen.period.size+'回</p>';const best=localStorage.getItem('compass-hero-quiz-best-v1');extra('bestTime').textContent=best?'全問正解の自己ベスト：'+clockText(Number(best)):'全問正解すると自己ベストを記録します。';
 }
 const ranks=[{min:0,name:'駆け出しのヒーロー',color:'#8b9299',desc:'冒険はまだ始まったばかり！'},{min:20,name:'見習いヒーロー',color:'#689d83',desc:'ヒーローたちが分かってきた！'},{min:40,name:'熟練プレイヤー',color:'#6a9ac2',desc:'かなりのコンパス通！'},{min:60,name:'コンパスの探索者',color:'#a785d2',desc:'ここまで分かるのはすごい！'},{min:80,name:'ヒーローマスター',color:'#c59b4b',desc:'コンパスの生き字引！'},{min:95,name:'伝説のヒーロー',color:'#d69b4c',desc:'あと少しで完全制覇！'},{min:100,name:'コンパス完全制覇',color:'#e1b45e',desc:'104人全員正解！'}];
 function getRank(p){return [...ranks].reverse().find(r=>p>=r.min)||ranks[0];}
 function renderResult(){
- const pct=Math.round(solved.size/characters.length*100), time=clockText(elapsed());
+ const points=currentAnswerPoints(),pct=Math.round(points/totalAnswerPoints*100), time=clockText(elapsed());
  const rank=getRank(pct),reason=ended?(endReason==='clear'?'全問正解':endReason==='timeout'?'時間切れ':'ギブアップ'):'挑戦中';
- extra('resultSummary').textContent=reason+'｜'+rank.name+'｜'+solved.size+' / '+characters.length+'人正解（'+pct+'%）｜経過 '+time+'｜区分ヒント '+hintSeen.weapon.size+'回｜ロールヒント '+hintSeen.period.size+'回';
+ extra('resultSummary').textContent=reason+'｜'+rank.name+'｜'+'正式名 '+solved.size+' / '+characters.length+'人・得点 '+points+' / '+totalAnswerPoints+'（'+pct+'%）｜経過 '+time+'｜区分ヒント '+hintSeen.weapon.size+'回｜ロールヒント '+hintSeen.period.size+'回';
  const canvas=extra('resultCanvas'),ctx=canvas.getContext('2d');
  ctx.fillStyle='#f5f0e5';ctx.fillRect(0,0,960,540);
  ctx.strokeStyle='#b49b68';ctx.lineWidth=5;ctx.strokeRect(22,22,916,496);
  ctx.textAlign='center';ctx.fillStyle='#8e7a57';ctx.font='25px Georgia,serif';ctx.fillText('HERO ARCHIVE',480,100);
  ctx.fillStyle='#263a46';ctx.font='bold 46px serif';ctx.fillText('＃コンパス 全ヒーロー言えるかな？',480,175);
- ctx.fillStyle=rank.color;ctx.font='bold 38px serif';ctx.fillText(rank.name,480,232);ctx.font='bold 88px Georgia,serif';ctx.fillText(solved.size+' / '+characters.length,480,330);
- ctx.fillStyle='#263a46';ctx.font='30px sans-serif';ctx.fillText('達成率 '+pct+'%　｜　'+time+'　｜　'+reason,480,380);
+ ctx.fillStyle=rank.color;ctx.font='bold 38px serif';ctx.fillText(rank.name,480,232);ctx.font='bold 88px Georgia,serif';ctx.fillText(points+' / '+totalAnswerPoints,480,330);
+ ctx.fillStyle='#263a46';ctx.font='30px sans-serif';ctx.fillText('正式名 '+solved.size+'/'+characters.length+'人　｜　'+pct+'%　｜　'+time,480,380);
  ctx.font='22px sans-serif';ctx.fillText('区分ヒント '+hintSeen.weapon.size+'回　｜　ロールヒント '+hintSeen.period.size+'回',480,426);ctx.font='18px sans-serif';ctx.fillText(rank.desc,480,456);
  ctx.fillStyle='#8e7a57';ctx.font='18px sans-serif';ctx.fillText('h7fgz669rc-debug.github.io/compass-hero-quiz/',480,493);
 }
