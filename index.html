@@ -117,7 +117,7 @@ function clockText(ms){const sec=Math.floor(ms/1000);return String(Math.floor(se
 function saveProgress(){try{localStorage.setItem(saveKey,JSON.stringify({solved:[...solved],nicknameSolved:[...nicknameSolved],ended,elapsed:elapsed(),hints:{weapon:[...hintSeen.weapon],period:[...hintSeen.period]},endReason:typeof endReason==='undefined'?'':endReason}));}catch(e){}}
 
 const normalize=s=>s.normalize('NFKC').trim().toLowerCase().replace(/[ァ-ヶ]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-96)).replace(/[\s・＝=＝'’"「」『』＆&＋+†<>＜＞＿_\-]/g,'');
-const readings={"かけだし勇者":["かけだしゆうしゃ"],"ゴン=フリークス":["ごんふりーくす"],"キルア=ゾルディック":["きるあぞるでぃっく"],"十文字 アタリ":["じゅうもんじあたり"],"ジャスティス ハンコック":["じゃすてぃすはんこっく"],"双挽 乃保":["そうびきのほ"],"桜華 忠臣":["おうかただおみ"],"ジャンヌ ダルク":["じゃんぬだるく"],"マルコス'55":["まるこす55","まるこすふぃふてぃーふぁいぶ"],"Voidoll":["ぼいどーる"],"深川 まとい":["ふかがわまとい"],"初音 ミク":["はつねみく"],"春麗":["ちゅんりー"],"マリア=S=レオンブルク":["まりあえすれおんぶるく"],"13 †サーティーン†":["13さーてぃーん","じゅうさんさーてぃーん"],"鏡音 リン":["かがみねりん"],"鏡音 レン":["かがみねれん"],"輝龍院 きらら":["きりゅういんきらら"],"デビルミント鬼龍 デルミン":["でびるみんときりゅうでるみん"],"猫宮 ひなた":["ねこみやひなた"],"岡部 倫太郎":["おかべりんたろう"],"零夜":["れいや"],"ピエール 77世":["ぴえーるななじゅうななせい","ぴえーる77せい"],"佐藤四郎兵衛忠信":["さとうしろうびょうえただのぶ"],"狐ヶ咲 甘色":["きつねがさきあまいろ"],"HM-WA100 ニーズヘッグ":["えいちえむだぶりゅーえーひゃくにーずへっぐ"],"中島 敦":["なかじまあつし"],"芥川 龍之介":["あくたがわりゅうのすけ"],"青春 アリス":["あおはるありす"],"糸廻 輪廻":["いとめぐりりんね"],"Bugdoll":["ばぐどーる"],"2B":["とぅーびー"],"御坂 美琴":["みさかみこと"],"天空王 ぶれいずどらごん":["てんくうおうぶれいずどらごん"],"ロックマン.EXE＆光熱斗":["ろっくまんえぐぜひかりねっと"],"鬼ヶ式 うら":["おにがしきうら"],"上条 当麻":["かみじょうとうま"],"ポプ子＆ピピ美":["ぽぷこぴぴみ"],"一姫":["いちひめ"]};
+const readings={"某＜なにがし＞":["なにがし","某"],"かけだし勇者":["かけだしゆうしゃ"],"ゴン=フリークス":["ごんふりーくす"],"キルア=ゾルディック":["きるあぞるでぃっく"],"十文字 アタリ":["じゅうもんじあたり"],"ジャスティス ハンコック":["じゃすてぃすはんこっく"],"双挽 乃保":["そうびきのほ"],"桜華 忠臣":["おうかただおみ"],"ジャンヌ ダルク":["じゃんぬだるく"],"マルコス'55":["まるこす55","まるこすふぃふてぃーふぁいぶ"],"Voidoll":["ぼいどーる"],"深川 まとい":["ふかがわまとい"],"初音 ミク":["はつねみく"],"春麗":["ちゅんりー"],"マリア=S=レオンブルク":["まりあえすれおんぶるく"],"13 †サーティーン†":["さーてぃーん","13さーてぃーん","じゅうさんさーてぃーん"],"鏡音 リン":["かがみねりん"],"鏡音 レン":["かがみねれん"],"輝龍院 きらら":["きりゅういんきらら"],"デビルミント鬼龍 デルミン":["でびるみんときりゅうでるみん"],"猫宮 ひなた":["ねこみやひなた"],"岡部 倫太郎":["おかべりんたろう"],"零夜":["れいや"],"ピエール 77世":["ぴえーるななじゅうななせい","ぴえーる77せい"],"佐藤四郎兵衛忠信":["さとうしろうびょうえただのぶ"],"狐ヶ咲 甘色":["きつねがさきあまいろ"],"HM-WA100 ニーズヘッグ":["えいちえむだぶりゅーえーひゃくにーずへっぐ"],"中島 敦":["なかじまあつし"],"芥川 龍之介":["あくたがわりゅうのすけ"],"青春 アリス":["あおはるありす"],"糸廻 輪廻":["いとめぐりりんね"],"Bugdoll":["ばぐどーる"],"2B":["とぅーびー"],"御坂 美琴":["みさかみこと"],"天空王 ぶれいずどらごん":["てんくうおうぶれいずどらごん"],"ロックマン.EXE＆光熱斗":["ろっくまんえぐぜひかりねっと"],"鬼ヶ式 うら":["おにがしきうら"],"上条 当麻":["かみじょうとうま"],"ポプ子＆ピピ美":["ぽぷこぴぴみ"],"一姫":["いちひめ"]};
 characters.forEach(c=>{c.readings=readings[c.name]||[];c.nickVariants=c.nick?[c.nick,...(c.nickVariants||[])].filter((v,i,a)=>v&&a.findIndex(x=>normalize(x)===normalize(v))===i&&![c.name,...c.readings].some(x=>normalize(x)===normalize(v))):[];c.nick=c.nickVariants[0]||'';});
 characters.forEach((c,i)=>{
  const tile=document.createElement('div');
@@ -183,6 +183,8 @@ el('giveup').addEventListener('click',()=>{
  finish();el('message').textContent='終了しました。未回答の名前を表示しています。';setTimeout(()=>{renderStats();renderResult();extra('resultPanel').hidden=false;extra('resultPanel').scrollIntoView({behavior:'smooth',block:'start'});},0);
 });
 // Restore answers and finished state without changing portrait loading logic.
+// Previously accepted なにがし nickname now counts as the full name.
+for(const i of nicknameSolved)if(characters[i].name==='某＜なにがし＞')solved.add(i);
 for(const i of nicknameSolved)if(!solved.has(i))reveal(i,'partial');
 for(const i of solved)reveal(i,'done');
 if(saved.ended){endReason=saved.endReason||'giveup';
