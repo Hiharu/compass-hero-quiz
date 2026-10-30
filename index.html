@@ -1,27 +1,258 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#14151c"><title>#コンパス ヒーロー名クイズ</title>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#コンパス ヒーロー名クイズ｜全ヒーロー言えるかな？</title>
+<meta name="description" content="#コンパスのヒーロー名当てクイズ。オリジナル・コラボを含む全ヒーローに好きな順で回答。ロールのヒントと成績表示に対応。非公式ファン制作。">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="#コンパス ヒーロー名クイズ">
+<meta property="og:description" content="#コンパスの全ヒーロー名を好きな順に回答。ロールとオリジナル／コラボのヒント付き。">
+<meta property="og:url" content="https://hiharu.github.io/compass-hero-quiz/">
+<meta property="og:image" content="https://hiharu.github.io/compass-hero-quiz/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://hiharu.github.io/compass-hero-quiz/">
 <style>
-:root{color-scheme:dark;--bg:#101116;--panel:#1b1d25;--panel2:#242732;--ink:#f7f4ef;--muted:#a5a8b5;--pink:#ff588e;--cyan:#63e3dd;--line:#333743}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#31243b 0,#101116 54%);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Noto Sans JP",sans-serif;min-height:100vh}.wrap{width:min(980px,100%);margin:auto;padding:24px 18px 52px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:22px}.brand{font-size:13px;letter-spacing:.2em;color:var(--cyan);font-weight:800}.title{font-size:clamp(28px,6vw,45px);font-weight:950;letter-spacing:-.04em;margin:5px 0}.sub{color:var(--muted);font-size:14px}.badge{border:1px solid #4b4653;border-radius:999px;padding:7px 12px;font-size:12px;color:#e4dce8;white-space:nowrap}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.btn,.select{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:10px 14px;border-radius:12px;font:inherit}.btn{cursor:pointer}.btn:hover{border-color:var(--pink)}.btn.primary{background:var(--pink);border-color:var(--pink);color:#1a1016;font-weight:850}.stats{margin-left:auto;color:var(--muted);align-self:center;font-size:13px}.card{background:linear-gradient(145deg,#20222b,#171820);border:1px solid var(--line);border-radius:24px;padding:clamp(18px,4vw,34px);box-shadow:0 18px 70px #0005}.row{display:flex;gap:24px;align-items:center}.portrait{width:clamp(114px,25vw,190px);aspect-ratio:1;flex:none;border-radius:18px;background:linear-gradient(145deg,#322b3b,#202631);border:1px solid #474350;display:grid;place-items:center;font-weight:900;font-size:45px;color:#f8d7e3;letter-spacing:-.1em;position:relative;overflow:hidden}.portrait:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 15%,#ff588e55,transparent 48%)}.portrait img{width:100%;height:100%;object-fit:cover;display:block}.portrait span{position:relative;z-index:1}.info{flex:1;min-width:0}.number{color:var(--pink);font-size:12px;font-weight:800;letter-spacing:.15em}.hint{font-size:clamp(24px,5vw,36px);font-weight:900;margin:8px 0}.pill{display:inline-block;border:1px solid #424552;border-radius:99px;padding:4px 10px;color:#d6d5dd;font-size:12px;margin:0 5px 0 0}.prompt{color:var(--muted);margin-top:14px}.form{display:flex;gap:9px;margin-top:22px}.input{flex:1;min-width:0;border:1px solid #414552;background:#11131a;color:white;padding:14px;border-radius:13px;font:inherit;font-size:17px;outline:none}.input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #63e3dd22}.feedback{min-height:28px;margin:12px 2px 0;font-weight:750}.feedback.ok{color:var(--cyan)}.feedback.no{color:#ff8da4}.progress{height:6px;border-radius:99px;background:#2b2e38;margin-top:20px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--cyan));transition:width .25s}.footer{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:10px}.list{margin-top:22px;background:#171920;border:1px solid var(--line);border-radius:18px;padding:16px}.listhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.listtitle{font-weight:850}.items{display:flex;flex-wrap:wrap;gap:7px}.item{font-size:12px;border:1px solid #383b45;border-radius:9px;padding:5px 8px;color:#aeb0ba}.item.done{border-color:#28635f;color:#85e7dc;background:#16302f}.hide{display:none!important}@media(max-width:560px){.wrap{padding:16px 13px 38px}.row{align-items:flex-start;gap:15px}.portrait{width:105px;border-radius:15px;font-size:34px}.form{flex-wrap:wrap}.form .input{flex-basis:100%}.form .btn{flex:1}.stats{width:100%;margin-left:0}.toolbar{gap:7px}.btn,.select{padding:9px 11px;font-size:13px}}
-</style></head><body><main class="wrap"><header class="top"><div><div class="brand">HERO NAME QUIZ</div><h1 class="title">#コンパス ヒーロー名クイズ</h1><div class="sub">ゲーム内表記で答えよう。ひらがな・カタカナも判定。</div></div><div class="badge">オリジナル ＋ コラボ</div></header>
-<div class="toolbar"><select id="mode" class="select"><option value="all">全ヒーロー</option><option value="original">オリジナルのみ</option><option value="collab">コラボのみ</option></select><button id="hint" class="btn">ヒントを表示</button><button id="skip" class="btn">答えを見る</button><button id="next" class="btn primary">次へ →</button><div id="stats" class="stats"></div></div>
-<section class="card"><div class="row"><div id="portrait" class="portrait"><span>?</span></div><div class="info"><div id="number" class="number"></div><div id="hintText" class="hint">このヒーローは誰？</div><div><span id="origin" class="pill"></span><span id="role" class="pill"></span></div><div class="prompt">ヒーロー名を入力</div></div></div><form id="form" class="form"><input id="answer" class="input" autocomplete="off" placeholder="例：十文字 アタリ" aria-label="ヒーロー名"><button class="btn primary" type="submit">回答</button></form><div id="feedback" class="feedback" aria-live="polite"></div><div class="progress"><i id="progress"></i></div><div class="footer"><span id="counter"></span><span>実装順</span></div></section>
-<section class="list"><div class="listhead"><div class="listtitle">今回の回答</div><div id="score"></div></div><div id="items" class="items"></div></section><p class="sub" style="text-align:center;margin-top:20px">ヒントはオリジナル／コラボとロール。画像：<a href="https://gamerch.com/compass/" target="_blank" rel="noopener" style="color:inherit">#コンパス攻略Wiki</a></p></main>
+:root{--ink:#263a46;--gold:#b49b68;--paper:#f5f0e5}
+*{box-sizing:border-box}
+body{margin:0;background:#e6e3da;color:var(--ink);font-family:Georgia,"Yu Mincho","Hiragino Mincho ProN",serif}
+main{max-width:920px;margin:auto;padding:22px 12px 60px}
+header{text-align:center;padding:16px 8px 18px;border-bottom:1px solid #bfb6a2}
+.eyebrow{font-size:10px;letter-spacing:.35em;color:#8e7a57}
+h1{font-size:clamp(23px,5vw,34px);font-weight:700;margin:9px 0}
+.subtitle{font-family:-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;font-size:11px;color:#78818a}
+.panel{background:var(--paper);border:1px solid #d0c5ae;box-shadow:0 4px 20px #263a4610;padding:14px;margin-top:18px}
+.panel-top{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #d7ccba;padding-bottom:10px;margin-bottom:12px}
+.panel-title{font-size:13px;font-weight:700;letter-spacing:.1em}.stats{font-family:-apple-system,sans-serif;font-size:12px;display:flex;gap:12px;flex-wrap:wrap}
+#count{color:#987c49;font-weight:700}
+form{display:flex;gap:8px}
+input{min-width:0;flex:1;padding:12px 10px;background:#fffefa;border:1px solid #b9b09e;color:var(--ink);font-size:16px;border-radius:2px}
+button{border:1px solid #314e60;background:#314e60;color:#fff;padding:10px 17px;font-size:13px;cursor:pointer;border-radius:2px}
+button:disabled,input:disabled{opacity:.5}
+#giveup{background:transparent;color:#826e56;border:1px solid #c5b9a4;font-size:11px;padding:7px 11px}
+.share-row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:14px 0 0}
+.share-row button{font-family:-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;font-size:12px;background:#f5f0e5;color:#314e60;border-color:#bfb6a2;padding:9px 12px}
+.share-row button:first-child{background:#314e60;color:#fff;border-color:#314e60}
+.bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px}
+#message{font-family:-apple-system,sans-serif;font-size:12px;color:#68727b;min-height:18px}
+.catalog-heading{font-weight:700;display:flex;align-items:center;gap:12px;margin:22px 2px 12px;color:#74694f;font-size:13px;letter-spacing:.14em}
+.catalog-heading:after{content:"";height:1px;background:#bfb6a2;flex:1}
+.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px}
+.tile{position:relative;aspect-ratio:1/1.10;min-width:0;border:2px solid var(--element);background:#2e4250;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.tile:before{content:"";position:absolute;inset:3px;border:1px solid #ffffff28;pointer-events:none;z-index:2}
+.number{position:absolute;top:5px;left:6px;color:#c4d0d3;font:9px Georgia,serif;z-index:3}
+.question{color:#e8e3d6;font:700 clamp(20px,4.5vw,32px) Georgia,serif}
+.tile.done{background:#f3e9d6}
+.tile.revealed{background:#cbd0cf}
+.tile .portrait{display:none;width:100%;height:77%;position:absolute;top:0;left:0;object-fit:cover;object-position:center top}
+.tile .name{display:none;position:absolute;bottom:0;left:0;width:100%;min-height:23%;padding:2px 1px;background:#f5f0e7;color:#263a46;text-align:center;font:600 clamp(8px,2vw,11px)/1.2 -apple-system,"Hiragino Kaku Gothic ProN",sans-serif;overflow-wrap:anywhere;align-content:center}
+.tile.done .portrait,.tile.done .name,.tile.revealed .name,.tile.revealed .portrait{display:block}
+.tile.done .question,.tile.revealed .question{display:none}
+.tile.revealed .name{background:#d9d9d5}
+.tile.zibai .portrait{object-fit:contain;object-position:center center;padding:0;background:transparent}
+.tile.zibai.done .portrait{background:#f3e9d6}
+.tile.zibai.revealed .portrait{background:#d9d9d5}
+.tile .portrait.failed{display:none}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin:17px 2px;color:#65717b;font:11px -apple-system,sans-serif}
+.dot{display:inline-block;width:9px;height:9px;background:var(--color);margin-right:4px;border-radius:50%}
+footer{text-align:center;color:#8b8c85;font:11px -apple-system,sans-serif;margin-top:22px;line-height:1.7}
+@media(min-width:550px){.grid{grid-template-columns:repeat(9,minmax(0,1fr));gap:7px}}
+@media(min-width:760px){.grid{grid-template-columns:repeat(12,minmax(0,1fr))}}
+
+
+/* V31: independent hint cards */
+.hint-answer{background:#f5f0e5;border:1px solid #c7baa4;border-radius:4px;padding:9px 12px;margin:7px 0;color:#263a46;font-size:13px}
+/* V28 additions: original roster and portrait styling remain unchanged */
+.extra-tools{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.extra-tools button,.hint-controls button{background:#f5f0e5;color:#314e60;border:1px solid #bfb6a2;padding:8px 10px;font-size:11px}.extra-tools button.active{background:#314e60;color:white}.extra-panel{border-top:1px solid #d7ccba;margin-top:12px;padding-top:12px;font:12px/1.7 -apple-system,"Hiragino Kaku Gothic ProN",sans-serif}.extra-panel[hidden]{display:none}.hint-controls{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}.hint-controls button:disabled{opacity:.4}/* V32: quiet selected tile indication; preserve elemental frame colors */
+.tile.selected{outline:none;background:#394e5b;box-shadow:inset 0 0 0 1px rgba(255,244,214,.32)}
+.tile.selected::after{content:"";position:absolute;right:5px;top:5px;width:7px;height:7px;border-radius:50%;background:#e7c98e;box-shadow:0 0 0 2px rgba(37,54,65,.65);pointer-events:none}
+.tile.selected .question{color:#fff4db}.tile.hidden-unsolved{display:none}.extra-note{color:#7b766b;font-size:11px}.mode-line{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}.mode-line select{background:#fffefa;border:1px solid #b9b09e;padding:7px;color:#263a46}.stat-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.stat-list span{padding:7px;background:#eae3d5}.result-preview{display:block;max-width:100%;border:1px solid #c5b9a4;margin:10px auto}
+</style>
+</head>
+<body><main>
+<header><div class="eyebrow">HERO ARCHIVE</div><h1>#コンパス ヒーロー名クイズ</h1><div class="subtitle">オリジナル・コラボを含む全ヒーロー｜好きな順に回答</div></header>
+<section class="panel">
+<div class="panel-top"><span class="panel-title">記憶の記録</span><div class="stats"><span id="count">0 / 104</span><span id="clock">00:00</span><span id="remain">残り 104</span></div></div>
+<form id="form"><input id="answer" autocomplete="off" placeholder="ゲーム内ヒーロー名を入力" aria-label="ヒーロー名"><button id="submit" type="submit">回答</button></form>
+<div class="bottom"><span id="message" aria-live="polite">ゲーム内表記または登録済みの通称で回答できます。ひらがな入力も可。</span><button id="giveup" type="button">ギブアップ</button></div>
+<div class="share-row"><button id="restart" type="button">最初からやり直す</button></div>
+<div class="extra-tools"><button id="hintToggle" type="button">ヒント</button><button id="statsToggle" type="button">成績・達成率</button><button id="filterToggle" type="button">未回答だけ表示</button><button id="resultToggle" type="button">結果カード</button></div>
+<div id="hintPanel" class="extra-panel" hidden><strong>ヒントを見たい「？」のマスをタップ</strong><div class="hint-controls"><button id="weaponHint" type="button">オリジナル／コラボ</button><button id="regionHint" type="button">ロール</button></div><div id="hintOutput" aria-live="polite">マスを選び、区分かロールのヒントを開いてね。</div><div id="weaponOutput" class="hint-answer" hidden></div><div id="periodOutput" class="hint-answer" hidden></div><div class="extra-note">※各ヒントの使用回数を記録します。</div></div>
+<div id="statsPanel" class="extra-panel" hidden><div id="statDetails"></div><div id="bestTime" class="extra-note"></div></div>
+<div id="resultPanel" class="extra-panel" hidden><div id="resultSummary"></div><canvas id="resultCanvas" width="960" height="540" class="result-preview" aria-label="結果カード"></canvas><div class="hint-controls"><button id="saveResult" type="button">画像を保存</button></div></div>
+</section>
+<div class="catalog-heading">HERO COLLECTION</div><p style="font:11px -apple-system,sans-serif;color:#79694f;line-height:1.6">※ゲーム内ヒーロー名で回答。フルネームと登録済みの通称、ひらがな読みを受け付けます。画像は攻略Wikiから読み込みます。</p>
+<div id="grid" class="grid"></div>
+<div id="legend" class="legend"></div>
+<footer>本サイトは非公式のファン制作クイズです。<br>ヒーロー名・画像等の権利はそれぞれの権利者に帰属します。画像：<a href="https://gamerch.com/compass/" target="_blank" rel="noopener">#コンパス攻略Wiki（Gamerch）</a></footer>
+</main>
 <script>
-const heroes=[["2016","十文字 アタリ","スプリンター","オリジナル","アタリ"],["2016","ジャスティス ハンコック","タンク","オリジナル","ジャスティス"],["2016","リリカ","ガンナー","オリジナル",""],["2016","双挽 乃保","アタッカー","オリジナル","乃保"],["2016","桜華 忠臣","アタッカー","オリジナル","忠臣"],["2016","ジャンヌ ダルク","タンク","オリジナル","ジャンヌ"],["2016","マルコス'55","アタッカー","オリジナル","マルコス"],["2016","ルチアーノ","ガンナー","オリジナル",""],["2016","Voidoll","スプリンター","オリジナル","ボイドール"],["2016","深川 まとい","ガンナー","オリジナル","まとい"],["2017","ソル＝バッドガイ","アタッカー","コラボ","ソル"],["2017","ディズィー","ガンナー","コラボ",""],["2017","グスタフ ハイドリヒ","タンク","オリジナル","グスタフ"],["2017","ニコラ テスラ","スプリンター","オリジナル","テスラ"],["2017","初音 ミク","スプリンター","コラボ","初音ミク"],["2017","ヴィオレッタ ノワール","タンク","オリジナル","ヴィオレッタ"],["2017","コクリコット ブランシュ","スプリンター","オリジナル","コクリコ"],["2017","リュウ","アタッカー","コラボ",""],["2017","春麗","スプリンター","コラボ",""],["2017","マリア=S=レオンブルク","ガンナー","オリジナル","マリア"],["2017","アダム=ユーリエフ","アタッカー","オリジナル","アダム"],["2017","13 †サーティーン†","ガンナー","オリジナル","サーティーン"],["2017","かけだし勇者","スプリンター","オリジナル","勇者"],["2017","エミリア","ガンナー","コラボ",""],["2017","レム","アタッカー","コラボ",""],["2018","カイ＝キスク","アタッカー","コラボ","カイ"],["2018","メグメグ","ガンナー","オリジナル",""],["2018","鏡音 リン","ガンナー","コラボ","鏡音リン"],["2018","鏡音 レン","タンク","コラボ","鏡音レン"],["2018","イスタカ","ガンナー","オリジナル",""],["2018","ザック＆レイチェル","スプリンター","コラボ","ザックとレイチェル"],["2018","輝龍院 きらら","スプリンター","オリジナル","きらら"],["2018","モノクマ","タンク","コラボ",""],["2018","ヴィーナス ポロロッチョ","アタッカー","オリジナル","ポロロッチョ"],["2018","アクア","スプリンター","コラボ",""],["2018","めぐみん","タンク","コラボ",""],["2019","ソーン=ユーリエフ","ガンナー","オリジナル","ソーン"],["2019","リヴァイ","アタッカー","コラボ",""],["2019","デビルミント鬼龍 デルミン","アタッカー","オリジナル","デルミン"],["2019","トマス","タンク","オリジナル",""],["2019","猫宮 ひなた","ガンナー","コラボ","猫宮ひなた"],["2019","岡部 倫太郎","ガンナー","コラボ","岡部倫太郎"],["2019","零夜","スプリンター","オリジナル",""],["2019","セイバーオルタ","アタッカー","コラボ",""],["2019","ギルガメッシュ","ガンナー","コラボ",""],["2020","ルルカ","アタッカー","オリジナル",""],["2020","ピエール 77世","スプリンター","オリジナル","ピエール"],["2020","佐藤四郎兵衛忠信","タンク","オリジナル","忠信"],["2020","アイズ・ヴァレンシュタイン","アタッカー","コラボ","アイズ"],["2020","狐ヶ咲 甘色","アタッカー","オリジナル","甘色"],["2020","ノクティス","アタッカー","コラボ","ノクト"],["2020","HM-WA100 ニーズヘッグ","ガンナー","オリジナル","ニーズヘッグ"],["2021","中島 敦","アタッカー","コラボ","中島敦"],["2021","芥川 龍之介","ガンナー","コラボ","芥川龍之介"],["2021","ゲームバズーカガール","ガンナー","オリジナル","バズーカガール"],["2021","ライザリン・シュタウト","タンク","コラボ","ライザ"],["2021","青春 アリス","タンク","オリジナル","アリス"],["2021","ジョーカー","スプリンター","コラボ",""],["2021","イグニス=ウィル=ウィスプ","アタッカー","オリジナル","イグニス"],["2021","アインズ・ウール・ゴウン","ガンナー","コラボ","アインズ"],["2021","糸廻 輪廻","ガンナー","オリジナル","輪廻"],["2021","キリト","アタッカー","コラボ",""],["2021","アスナ","スプリンター","コラボ",""],["2022","Bugdoll","ガンナー","オリジナル","バグドール"],["2022","ステリア・ララ・シルワ","アタッカー","オリジナル","ステリア"],["2022","ラム","スプリンター","コラボ",""],["2022","2B","アタッカー","コラボ","2b"],["2022","ラヴィ・シュシュマルシュ","タンク","オリジナル","ラヴィ"],["2022","リムル=テンペスト","アタッカー","コラボ","リムル"],["2022","アル・ダハブ=アルカティア","スプリンター","オリジナル","アルダハブ"],["2022","御坂 美琴","アタッカー","コラボ","御坂美琴"],["2022","アクセラレータ","ガンナー","コラボ","一方通行"],["2023","天空王 ぶれいずどらごん","ガンナー","オリジナル","ぶれいずどらごん"],["2023","ベル・クラネル","スプリンター","コラボ","ベル"],["2023","ロキシー・ミグルディア","ガンナー","コラボ","ロキシー"],["2023","某＜なにがし＞","スプリンター","オリジナル","なにがし"],["2023","ロックマン.EXE＆光熱斗","ガンナー","コラボ","ロックマンエグゼと光熱斗"],["2023","クー・シー","アタッカー","オリジナル",""],["2023","デンジ","アタッカー","コラボ",""],["2023","パワー","ガンナー","コラボ",""],["2024","アミスター=バランディン","タンク","オリジナル","アミスター"],["2024","シノン","ガンナー","コラボ",""],["2024","ターニャ・デグレチャフ","アタッカー","コラボ","ターニャ"],["2024","鬼ヶ式 うら","タンク","オリジナル","うら"],["2024","コラプス","アタッカー","オリジナル",""],["2024","ボンドルド","アタッカー","コラボ",""],["2024","みりぽゆ","ガンナー","オリジナル",""],["2024","ゴン","アタッカー","コラボ",""],["2024","キルア","スプリンター","コラボ",""],["2025","チーちゃん","スプリンター","オリジナル",""],["2025","上条 当麻","アタッカー","コラボ","上条当麻"],["2025","ーペルリニエ","ガンナー","オリジナル","ペルリニエ"],["2025","シャドウ","アタッカー","コラボ",""],["2025","ポプ子＆ピピ美","タンク","コラボ","ポプ子とピピ美"],["2025","メルーニャ・ランチェルナ","ガンナー","オリジナル","メルーニャ"],["2025","セイバー","アタッカー","コラボ",""],["2025","アーチャー","アタッカー","コラボ",""],["2025","ランサー","ガンナー","コラボ",""],["2026","†ファースト†","タンク","オリジナル","ファースト"],["2026","レゼ","ガンナー","コラボ",""],["2026","シャルル・リヒター","アタッカー","オリジナル","シャルル"],["2026","一姫","ガンナー","オリジナル",""],["2026","エドワード・エルリック","タンク","コラボ","エドワード"],["2026","オクトバリ・ニャル・タココ","アタッカー","オリジナル","タココ"]].map(([year,name,role,origin,nick])=>({year,name,role,origin,nick}));
-heroes.forEach((h,i)=>h.icon='https://cdn.gamerch.com/contents/wiki/3766/entry/'+["1482138124.jpg","1482138072.jpg","1482138105.jpg","1482138142.jpg","1482138115.jpg","1482138084.jpg","1482138096.jpg","1482138150.jpg","1482138059.jpg","1482138133.jpg","jbjw49vl.jpg","jbjw6ybt.jpg","1618593205.jpg","1491474263.jpg","jbjwa4ix.jpg","1497862338.jpg","1497862351.jpg","jbjwdvk1.jpg","jbjwfhfd.jpg","1506400537.jpg","1506400723.jpg","T38ElIHw.png","1513591367.jpg","jbqg8ane.jpg","jbqg8and.jpg","Gzfcd9pc.png","1521524345.jpg","1581023505.jpg","1581023589.jpg","1530336725.jpg","1581026314.jpg","1561440396.jpg","1580820403.jpg","1561440381.jpg","1581026420.jpg","1581026363.jpg","1561440410.jpg","1581026474.jpg","1561440425.jpg","1561631323.jpg","1581046620.jpg","1581046358.jpg","1572262745.jpg","1581046377.jpg","1581046400.jpg","1580745684.jpg","1585028642.jpg","1590050887.jpg","kdlswzbl.jpg","kejatdrt.jpg","kgur6g3d.jpg","knk6k6yh.jpg","1609529806.jpg","1609529817.jpg","knk6ka1l.jpg","kq93m5rt.jpg","nfLkcZTv.jpg","kqckj149.jpg","ku2apwh5.jpg","gkd5NNeY.png","kv8ai9hd.jpg","kxq8p9bu.jpg","kxq8p9bt.jpg","kywsyoa9.jpg","l169vm5l.jpg","l3snwn29.jpg","l4wpqvah.jpg","w4WiUus1.png","l8nm72e9.jpg","AitlZc32.png","MZ1mNrmQ.png","Jtg8Y9D7.png","evyObvVF.png","EpbKzzoQ.png","dzEVbj6L.png","tqj8JNde.png","TfXfHnYo.png","DPPrLtUw.png","YNPc6XLd.png","LTzYQF15.png","GQghwEHv.png","HUfapJl4.png","M47r2KgS.jpg","ZcTOxy4k.png","uHkHV5ew.png","cxHwuwcL.png","EpCsjFNw.png","OipAkfYc.png","Uu6FJ14G.png","X6Guuper.png","89MWTUG7.png","HQbWBqBt.png","vdClMZcz.png","304Vgj1S.png","MCNK9peQ.png","hhh8uf30.png","mIPsxhiP.png","tG3iu6yC.png","NE8mxRRP.png","8NfokCLN.png","11pzJVox.png","2aoK9MhV.png","ditmCcXk.png","0qBMDcWV.png"][i]);
-const norm=s=>s.toLowerCase().normalize('NFKC').replace(/[ぁ-ゖ]/g,c=>String.fromCharCode(c.charCodeAt(0)+96)).replace(/[\s　・＝=＝'’"「」『』＆&＋+†<>＜＞＿_\-ー]/g,'');
-let pool=[],idx=-1,done=new Set(),count=0,correct=0,shown=false;
-const $=id=>document.getElementById(id);
-function initials(n){return (n.replace(/[\s・＝=＆&.'’†<>＜＞]/g,'').match(/[一-龯々ぁ-んァ-ヶA-Za-z0-9]/g)||['?']).slice(0,2).join('')}
-function setup(){const m=$('mode').value;pool=heroes.filter(h=>m==='all'||(m==='original'?h.origin==='オリジナル':h.origin==='コラボ'));idx=-1;done.clear();count=correct=0;nextHero()}
-function nextHero(){if(!pool.length)return;idx=(idx+1)%pool.length;shown=false;$('answer').value='';$('feedback').textContent='';$('feedback').className='feedback';$('hintText').textContent='このヒーローは誰？';$('origin').textContent='';$('role').textContent='';$('portrait').innerHTML='<span>?</span>';$('number').textContent='HERO '+String(idx+1).padStart(3,'0');$('counter').textContent='全 '+pool.length+' 人';$('progress').style.width=(done.size/pool.length*100)+'%';$('answer').focus();update()}
-function reveal(text){const h=pool[idx];$('hintText').textContent=text||h.name;$('origin').textContent=h.origin;$('role').textContent=h.role;$('portrait').innerHTML=h.icon?'<img src="'+h.icon+'" alt="'+h.name+'" loading="eager">':'<span>'+initials(h.name)+'</span>';shown=true}
-function update(){$('stats').textContent='正解 '+correct+' / 回答 '+count;$('score').textContent=done.size+' / '+pool.length;$('items').innerHTML=pool.map((h,i)=>'<span class="item '+(done.has(i)?'done':'')+'">'+(done.has(i)?h.name:'？？？')+'</span>').join('')}
-$('hint').onclick=()=>{const h=pool[idx];if(!shown){$('hintText').textContent=h.origin+' ヒーロー';$('origin').textContent=h.origin;$('role').textContent='';shown='hint1'}else if(shown==='hint1'){$('role').textContent=h.role;$('hintText').textContent=h.origin+' / '+h.role;shown=true}};
-$('skip').onclick=()=>{reveal();$('feedback').textContent='正解：'+pool[idx].name;$('feedback').className='feedback';done.add(idx);update()};
-$('next').onclick=nextHero;$('mode').onchange=setup;
-$('form').onsubmit=e=>{e.preventDefault();const h=pool[idx],v=norm($('answer').value);if(!v)return;count++;const full=norm(h.name),nick=norm(h.nick||'');const isFull=v===full,isNick=nick&&v===nick;
-if(isFull||isNick){correct++;done.add(idx);reveal();$('feedback').textContent=isFull?'正解！'+(h.nick?'（通称も正解扱い）':''):'通称で正解！';$('feedback').className='feedback ok';$('progress').style.width=(done.size/pool.length*100)+'%'}else{$('feedback').textContent='不正解。正式なゲーム内ヒーロー名で回答してね';$('feedback').className='feedback no'}update()};
-setup();
+'use strict';
+const colors={アタッカー:'#c9674d',ガンナー:'#4b9cc6',スプリンター:'#55a994',タンク:'#b99b57'};
+const characters=[{"year":"2016","name":"十文字 アタリ","role":"スプリンター","origin":"オリジナル","nick":"アタリ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1482138124.jpg"},{"year":"2016","name":"ジャスティス ハンコック","role":"タンク","origin":"オリジナル","nick":"ジャスティス","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1482138072.jpg"},{"year":"2016","name":"リリカ","role":"ガンナー","origin":"オリジナル","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1482138105.jpg"},{"year":"2016","name":"双挽 乃保","role":"アタッカー","origin":"オリジナル","nick":"乃保","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1482138142.jpg"},{"year":"2016","name":"桜華 忠臣","role":"アタッカー","origin":"オリジナル","nick":"忠臣","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1482138115.jpg"},{"year":"2016","name":"ジャンヌ ダルク","role":"タンク","origin":"オリジナル","nick":"ジャンヌ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1482138084.jpg"},{"year":"2016","name":"マルコス'55","role":"アタッカー","origin":"オリジナル","nick":"マルコス","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1482138096.jpg"},{"year":"2016","name":"ルチアーノ","role":"ガンナー","origin":"オリジナル","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1482138150.jpg"},{"year":"2016","name":"Voidoll","role":"スプリンター","origin":"オリジナル","nick":"ボイドール","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1482138059.jpg"},{"year":"2016","name":"深川 まとい","role":"ガンナー","origin":"オリジナル","nick":"まとい","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1482138133.jpg"},{"year":"2017","name":"ソル＝バッドガイ","role":"アタッカー","origin":"コラボ","nick":"ソル","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/jbjw49vl.jpg"},{"year":"2017","name":"ディズィー","role":"ガンナー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/jbjw6ybt.jpg"},{"year":"2017","name":"グスタフ ハイドリヒ","role":"タンク","origin":"オリジナル","nick":"グスタフ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1618593205.jpg"},{"year":"2017","name":"ニコラ テスラ","role":"スプリンター","origin":"オリジナル","nick":"テスラ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1491474263.jpg"},{"year":"2017","name":"初音 ミク","role":"スプリンター","origin":"コラボ","nick":"初音ミク","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/jbjwa4ix.jpg"},{"year":"2017","name":"ヴィオレッタ ノワール","role":"タンク","origin":"オリジナル","nick":"ヴィオレッタ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1497862338.jpg"},{"year":"2017","name":"コクリコット ブランシュ","role":"スプリンター","origin":"オリジナル","nick":"コクリコ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1497862351.jpg"},{"year":"2017","name":"リュウ","role":"アタッカー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/jbjwdvk1.jpg"},{"year":"2017","name":"春麗","role":"スプリンター","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/jbjwfhfd.jpg"},{"year":"2017","name":"マリア=S=レオンブルク","role":"ガンナー","origin":"オリジナル","nick":"マリア","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1506400537.jpg"},{"year":"2017","name":"アダム=ユーリエフ","role":"アタッカー","origin":"オリジナル","nick":"アダム","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1506400723.jpg"},{"year":"2017","name":"13 †サーティーン†","role":"ガンナー","origin":"オリジナル","nick":"サーティーン","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/T38ElIHw.png"},{"year":"2017","name":"かけだし勇者","role":"スプリンター","origin":"オリジナル","nick":"勇者","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1513591367.jpg"},{"year":"2017","name":"エミリア","role":"ガンナー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/jbqg8ane.jpg"},{"year":"2017","name":"レム","role":"アタッカー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/jbqg8and.jpg"},{"year":"2018","name":"カイ＝キスク","role":"アタッカー","origin":"コラボ","nick":"カイ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/Gzfcd9pc.png"},{"year":"2018","name":"メグメグ","role":"ガンナー","origin":"オリジナル","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1521524345.jpg"},{"year":"2018","name":"鏡音 リン","role":"ガンナー","origin":"コラボ","nick":"鏡音リン","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1581023505.jpg"},{"year":"2018","name":"鏡音 レン","role":"タンク","origin":"コラボ","nick":"鏡音レン","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1581023589.jpg"},{"year":"2018","name":"イスタカ","role":"ガンナー","origin":"オリジナル","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1530336725.jpg"},{"year":"2018","name":"ザック＆レイチェル","role":"スプリンター","origin":"コラボ","nick":"ザックとレイチェル","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1581026314.jpg"},{"year":"2018","name":"輝龍院 きらら","role":"スプリンター","origin":"オリジナル","nick":"きらら","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1561440396.jpg"},{"year":"2018","name":"モノクマ","role":"タンク","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1580820403.jpg"},{"year":"2018","name":"ヴィーナス ポロロッチョ","role":"アタッカー","origin":"オリジナル","nick":"ポロロッチョ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1561440381.jpg"},{"year":"2018","name":"アクア","role":"スプリンター","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1581026420.jpg"},{"year":"2018","name":"めぐみん","role":"タンク","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1581026363.jpg"},{"year":"2019","name":"ソーン=ユーリエフ","role":"ガンナー","origin":"オリジナル","nick":"ソーン","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1561440410.jpg"},{"year":"2019","name":"リヴァイ","role":"アタッカー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1581026474.jpg"},{"year":"2019","name":"デビルミント鬼龍 デルミン","role":"アタッカー","origin":"オリジナル","nick":"デルミン","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1561440425.jpg"},{"year":"2019","name":"トマス","role":"タンク","origin":"オリジナル","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1561631323.jpg"},{"year":"2019","name":"猫宮 ひなた","role":"ガンナー","origin":"コラボ","nick":"猫宮ひなた","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1581046620.jpg"},{"year":"2019","name":"岡部 倫太郎","role":"ガンナー","origin":"コラボ","nick":"岡部倫太郎","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1581046358.jpg"},{"year":"2019","name":"零夜","role":"スプリンター","origin":"オリジナル","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1572262745.jpg"},{"year":"2019","name":"セイバーオルタ","role":"アタッカー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1581046377.jpg"},{"year":"2019","name":"ギルガメッシュ","role":"ガンナー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1581046400.jpg"},{"year":"2020","name":"ルルカ","role":"アタッカー","origin":"オリジナル","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1580745684.jpg"},{"year":"2020","name":"ピエール 77世","role":"スプリンター","origin":"オリジナル","nick":"ピエール","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1585028642.jpg"},{"year":"2020","name":"佐藤四郎兵衛忠信","role":"タンク","origin":"オリジナル","nick":"忠信","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1590050887.jpg"},{"year":"2020","name":"アイズ・ヴァレンシュタイン","role":"アタッカー","origin":"コラボ","nick":"アイズ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/kdlswzbl.jpg"},{"year":"2020","name":"狐ヶ咲 甘色","role":"アタッカー","origin":"オリジナル","nick":"甘色","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/kejatdrt.jpg"},{"year":"2020","name":"ノクティス","role":"アタッカー","origin":"コラボ","nick":"ノクト","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/kgur6g3d.jpg"},{"year":"2020","name":"HM-WA100 ニーズヘッグ","role":"ガンナー","origin":"オリジナル","nick":"ニーズヘッグ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/knk6k6yh.jpg"},{"year":"2021","name":"中島 敦","role":"アタッカー","origin":"コラボ","nick":"中島敦","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1609529806.jpg"},{"year":"2021","name":"芥川 龍之介","role":"ガンナー","origin":"コラボ","nick":"芥川龍之介","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/1609529817.jpg"},{"year":"2021","name":"ゲームバズーカガール","role":"ガンナー","origin":"オリジナル","nick":"バズーカガール","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/knk6ka1l.jpg"},{"year":"2021","name":"ライザリン・シュタウト","role":"タンク","origin":"コラボ","nick":"ライザ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/kq93m5rt.jpg"},{"year":"2021","name":"青春 アリス","role":"タンク","origin":"オリジナル","nick":"アリス","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/nfLkcZTv.jpg"},{"year":"2021","name":"ジョーカー","role":"スプリンター","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/kqckj149.jpg"},{"year":"2021","name":"イグニス=ウィル=ウィスプ","role":"アタッカー","origin":"オリジナル","nick":"イグニス","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/ku2apwh5.jpg"},{"year":"2021","name":"アインズ・ウール・ゴウン","role":"ガンナー","origin":"コラボ","nick":"アインズ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/gkd5NNeY.png"},{"year":"2021","name":"糸廻 輪廻","role":"ガンナー","origin":"オリジナル","nick":"輪廻","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/kv8ai9hd.jpg"},{"year":"2021","name":"キリト","role":"アタッカー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/kxq8p9bu.jpg"},{"year":"2021","name":"アスナ","role":"スプリンター","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/kxq8p9bt.jpg"},{"year":"2022","name":"Bugdoll","role":"ガンナー","origin":"オリジナル","nick":"バグドール","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/kywsyoa9.jpg"},{"year":"2022","name":"ステリア・ララ・シルワ","role":"アタッカー","origin":"オリジナル","nick":"ステリア","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/l169vm5l.jpg"},{"year":"2022","name":"ラム","role":"スプリンター","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/l3snwn29.jpg"},{"year":"2022","name":"2B","role":"アタッカー","origin":"コラボ","nick":"2b","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/l4wpqvah.jpg"},{"year":"2022","name":"ラヴィ・シュシュマルシュ","role":"タンク","origin":"オリジナル","nick":"ラヴィ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/w4WiUus1.png"},{"year":"2022","name":"リムル=テンペスト","role":"アタッカー","origin":"コラボ","nick":"リムル","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/l8nm72e9.jpg"},{"year":"2022","name":"アル・ダハブ=アルカティア","role":"スプリンター","origin":"オリジナル","nick":"アルダハブ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/AitlZc32.png"},{"year":"2022","name":"御坂 美琴","role":"アタッカー","origin":"コラボ","nick":"御坂美琴","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/MZ1mNrmQ.png"},{"year":"2022","name":"アクセラレータ","role":"ガンナー","origin":"コラボ","nick":"一方通行","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/Jtg8Y9D7.png"},{"year":"2023","name":"天空王 ぶれいずどらごん","role":"ガンナー","origin":"オリジナル","nick":"ぶれいずどらごん","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/evyObvVF.png"},{"year":"2023","name":"ベル・クラネル","role":"スプリンター","origin":"コラボ","nick":"ベル","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/EpbKzzoQ.png"},{"year":"2023","name":"ロキシー・ミグルディア","role":"ガンナー","origin":"コラボ","nick":"ロキシー","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/dzEVbj6L.png"},{"year":"2023","name":"某＜なにがし＞","role":"スプリンター","origin":"オリジナル","nick":"なにがし","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/tqj8JNde.png"},{"year":"2023","name":"ロックマン.EXE＆光熱斗","role":"ガンナー","origin":"コラボ","nick":"ロックマンエグゼと光熱斗","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/TfXfHnYo.png"},{"year":"2023","name":"クー・シー","role":"アタッカー","origin":"オリジナル","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/DPPrLtUw.png"},{"year":"2023","name":"デンジ","role":"アタッカー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/YNPc6XLd.png"},{"year":"2023","name":"パワー","role":"ガンナー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/LTzYQF15.png"},{"year":"2024","name":"アミスター=バランディン","role":"タンク","origin":"オリジナル","nick":"アミスター","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/GQghwEHv.png"},{"year":"2024","name":"シノン","role":"ガンナー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/HUfapJl4.png"},{"year":"2024","name":"ターニャ・デグレチャフ","role":"アタッカー","origin":"コラボ","nick":"ターニャ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/M47r2KgS.jpg"},{"year":"2024","name":"鬼ヶ式 うら","role":"タンク","origin":"オリジナル","nick":"うら","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/ZcTOxy4k.png"},{"year":"2024","name":"コラプス","role":"アタッカー","origin":"オリジナル","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/uHkHV5ew.png"},{"year":"2024","name":"ボンドルド","role":"アタッカー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/cxHwuwcL.png"},{"year":"2024","name":"みりぽゆ","role":"ガンナー","origin":"オリジナル","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/EpCsjFNw.png"},{"year":"2024","name":"ゴン","role":"アタッカー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/OipAkfYc.png"},{"year":"2024","name":"キルア","role":"スプリンター","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/Uu6FJ14G.png"},{"year":"2025","name":"チーちゃん","role":"スプリンター","origin":"オリジナル","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/X6Guuper.png"},{"year":"2025","name":"上条 当麻","role":"アタッカー","origin":"コラボ","nick":"上条当麻","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/89MWTUG7.png"},{"year":"2025","name":"ーペルリニエ","role":"ガンナー","origin":"オリジナル","nick":"ペルリニエ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/HQbWBqBt.png"},{"year":"2025","name":"シャドウ","role":"アタッカー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/vdClMZcz.png"},{"year":"2025","name":"ポプ子＆ピピ美","role":"タンク","origin":"コラボ","nick":"ポプ子とピピ美","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/304Vgj1S.png"},{"year":"2025","name":"メルーニャ・ランチェルナ","role":"ガンナー","origin":"オリジナル","nick":"メルーニャ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/MCNK9peQ.png"},{"year":"2025","name":"セイバー","role":"アタッカー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/hhh8uf30.png"},{"year":"2025","name":"アーチャー","role":"アタッカー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/mIPsxhiP.png"},{"year":"2025","name":"ランサー","role":"ガンナー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/tG3iu6yC.png"},{"year":"2026","name":"†ファースト†","role":"タンク","origin":"オリジナル","nick":"ファースト","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/NE8mxRRP.png"},{"year":"2026","name":"レゼ","role":"ガンナー","origin":"コラボ","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/8NfokCLN.png"},{"year":"2026","name":"シャルル・リヒター","role":"アタッカー","origin":"オリジナル","nick":"シャルル","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/11pzJVox.png"},{"year":"2026","name":"一姫","role":"ガンナー","origin":"オリジナル","nick":"","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/2aoK9MhV.png"},{"year":"2026","name":"エドワード・エルリック","role":"タンク","origin":"コラボ","nick":"エドワード","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/ditmCcXk.png"},{"year":"2026","name":"オクトバリ・ニャル・タココ","role":"アタッカー","origin":"オリジナル","nick":"タココ","icon":"https://cdn.gamerch.com/contents/wiki/3766/entry/0qBMDcWV.png"}];
+const el=id=>document.getElementById(id);
+const grid=el('grid');
+const tiles=[];
+const solved=new Set();
+let ended=false;
+let endReason='';
+let hintSeen={weapon:new Set(),period:new Set()};
+// Progress is saved only in this browser. Keep the same key across future updates.
+const saveKey='compass-hero-quiz-progress-v1';
+let saved={};
+try{saved=JSON.parse(localStorage.getItem(saveKey)||'{}')||{};}catch(e){}
+if(Array.isArray(saved.solved))saved.solved.forEach(i=>{if(Number.isInteger(i)&&i>=0&&i<characters.length)solved.add(i);});
+let elapsedBefore=Number.isFinite(saved.elapsed)&&saved.elapsed>=0?saved.elapsed:0;
+let started=0;
+let running=false;
+function elapsed(){return elapsedBefore+(running?Date.now()-started:0);}
+function startTimer(){
+ if(ended||running)return;
+ started=Date.now();running=true;
+ saveProgress();
+}
+function clockText(ms){const sec=Math.floor(ms/1000);return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');}
+function saveProgress(){try{localStorage.setItem(saveKey,JSON.stringify({solved:[...solved],ended,elapsed:elapsed(),hints:{weapon:[...hintSeen.weapon],period:[...hintSeen.period]},endReason:typeof endReason==='undefined'?'':endReason}));}catch(e){}}
+
+const normalize=s=>s.normalize('NFKC').trim().replace(/\s+/g,'').toLowerCase().replace(/[ァ-ヶ]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-96));
+characters.forEach((c,i)=>{
+ const tile=document.createElement('div');
+ tile.className='tile';tile.style.setProperty('--element',colors[c.role]);
+ const number=document.createElement('span');number.className='number';number.textContent=String(i+1).padStart(3,'0');
+ const question=document.createElement('span');question.className='question';question.textContent='?';
+ const portrait=document.createElement('img');portrait.className='portrait';portrait.alt='';portrait.loading='lazy';
+ portrait.onerror=()=>{
+  const next=Number(portrait.dataset.sourceIndex||'0')+1;
+  const sources=JSON.parse(portrait.dataset.sources||'[]');
+  if(next<sources.length){portrait.dataset.sourceIndex=String(next);portrait.src=sources[next];}
+  else {portrait.classList.add('failed');portrait.removeAttribute('src');}
+ };
+ const name=document.createElement('span');name.className='name';name.textContent=c.name;
+ tile.append(number,question,portrait,name);grid.appendChild(tile);tiles.push(tile);
+});
+el('legend').innerHTML=Object.entries(colors).map(([e,color])=>`<span><i class="dot" style="--color:${color}"></i>${e}</span>`).join('');
+function reveal(i,cls){
+ tiles[i].classList.add(cls);
+ const img=tiles[i].querySelector('img');
+ img.loading='eager';
+ const c=characters[i];
+ const sources=[c.icon];
+ img.dataset.sources=JSON.stringify(sources);
+ img.dataset.sourceIndex='0';
+ img.src=sources[0];
+}
+const publicUrl='https://hiharu.github.io/compass-hero-quiz/';
+function update(){el('count').textContent=`${solved.size} / ${characters.length}`;el('remain').textContent=`残り ${characters.length-solved.size}`;}
+function finish(){elapsedBefore=elapsed();running=false;ended=true;el('answer').disabled=true;el('submit').disabled=true;el('giveup').disabled=true;saveProgress();}
+el('form').addEventListener('submit',event=>{
+ event.preventDefault();if(ended)return;
+ const value=normalize(el('answer').value);if(!value)return;
+ if(!running)startTimer();
+ const fullIndex=characters.findIndex(c=>normalize(c.name)===value);
+ const nickIndex=characters.findIndex((c,i)=>c.nick&&normalize(c.nick)===value&&!solved.has(i));
+ const nickAnyIndex=characters.findIndex(c=>c.nick&&normalize(c.nick)===value);
+ const i=fullIndex>=0?fullIndex:nickIndex;
+ if(i<0){if(nickAnyIndex>=0&&solved.has(nickAnyIndex)){el('message').textContent='そのヒーローは回答済みです。';el('answer').value='';return;}el('message').textContent='未登録または不正解です。';return;}
+ if(solved.has(i)){el('message').textContent='そのヒーローは回答済みです。';el('answer').value='';return;}
+ solved.add(i);reveal(i,'done');saveProgress();el('message').textContent=`正解：${characters[i].name}`;el('answer').value='';update();
+ if(solved.size===characters.length){endReason='clear';finish();el('message').textContent='全問正解！';setTimeout(()=>{renderStats();renderResult();extra('resultPanel').hidden=false;extra('resultPanel').scrollIntoView({behavior:'smooth',block:'start'});},0);}
+});
+el('giveup').addEventListener('click',()=>{
+ if(ended||!confirm('ギブアップして未回答の名前を表示しますか？'))return;
+ endReason='giveup';characters.forEach((c,i)=>{if(!solved.has(i))reveal(i,'revealed');});
+ finish();el('message').textContent='終了しました。未回答の名前を表示しています。';setTimeout(()=>{renderStats();renderResult();extra('resultPanel').hidden=false;extra('resultPanel').scrollIntoView({behavior:'smooth',block:'start'});},0);
+});
+// Restore answers and finished state without changing portrait loading logic.
+for(const i of solved)reveal(i,'done');
+if(saved.ended){endReason=saved.endReason||'giveup';
+ for(let i=0;i<characters.length;i++)if(!solved.has(i))reveal(i,'revealed');
+ ended=true;el('answer').disabled=true;el('submit').disabled=true;el('giveup').disabled=true;
+ el('message').textContent='前回終了した結果を表示しています。';
+}else if(solved.size||elapsedBefore>0){el('message').textContent='前回の続きです。次の回答からタイマーが再開します。';}
+el('clock').textContent=clockText(elapsed());
+setInterval(()=>{if(running){el('clock').textContent=clockText(elapsed());saveProgress();}},1000);
+el('restart').addEventListener('click',()=>{
+ if(!confirm('回答と経過時間を消して最初からやり直しますか？'))return;
+ // Reset in place: no reload, so a cached page cannot restore old timer state.
+ running=false;ended=false;endReason='';elapsedBefore=0;started=0;
+ solved.clear();hintSeen.weapon.clear();hintSeen.period.clear();
+ selectedHintIndex=-1;showOnlyUnsolved=false;
+ tiles.forEach(tile=>{tile.classList.remove('done','revealed','selected','hidden-unsolved');});
+ extra('filterToggle').classList.remove('active');
+ ['hintPanel','statsPanel','resultPanel'].forEach(id=>{extra(id).hidden=true;});
+ ['weaponOutput','periodOutput'].forEach(id=>{extra(id).hidden=true;});
+ extra('hintOutput').textContent='マスを選び、区分かロールのヒントを開いてね。';
+ el('answer').disabled=false;el('submit').disabled=false;el('giveup').disabled=false;
+ el('answer').value='';el('clock').textContent='00:00';
+ el('message').textContent='最初の回答を送信すると計測が始まります。';
+ update();saveProgress();renderStats();
+});
+update();
+
+// V28 extra quiz tools; all existing character records and image URLs preserved.
+const weaponHints={"ベネット":"片手剣","行秋":"片手剣","神里綾人":"片手剣","ジン":"片手剣","楓原万葉":"片手剣","リネット":"片手剣","閑雲":"法器","刻晴":"片手剣","久岐忍":"片手剣","レイラ":"片手剣","アルベド":"片手剣","七七":"片手剣","ガイア":"片手剣","神里綾華":"片手剣","フリーナ":"片手剣","ニィロウ":"片手剣","クロリンデ":"片手剣","シロネン":"片手剣","千織":"片手剣","アルハイゼン":"片手剣","綺良々":"片手剣","ダリア":"片手剣","スカーク":"片手剣","ドゥリン":"片手剣","兹白":"片手剣","ディルック":"両手剣","辛炎":"両手剣","ディシア":"両手剣","嘉明":"両手剣","北斗":"両手剣","レザー":"両手剣","ノエル":"両手剣","重雲":"両手剣","エウルア":"両手剣","荒瀧一斗":"両手剣","早柚":"両手剣","ナヴィア":"両手剣","カーヴェ":"両手剣","フレミネ":"両手剣","ドリー":"両手剣","マーヴィカ":"両手剣","キィニチ":"両手剣","アイノ":"両手剣","サンドローネ":"両手剣","香菱":"長柄武器","胡桃":"長柄武器","トーマ":"長柄武器","シュヴルーズ":"長柄武器","アルレッキーノ":"長柄武器","キャンディス":"長柄武器","魈":"長柄武器","雷電将軍":"長柄武器","ロサリア":"長柄武器","鍾離":"長柄武器","雲菫":"長柄武器","ミカ":"長柄武器","セノ":"長柄武器","ヨォーヨ":"長柄武器","カチーナ":"長柄武器","イアンサ":"長柄武器","アンバー":"弓","宵宮":"弓","リネ":"弓","タルタリヤ":"弓","夜蘭":"弓","ウェンティ":"弓","ファルザン":"弓","チャスカ":"弓","フィッシュル":"弓","九条裟羅":"弓","オロルン":"弓","甘雨":"弓","ディオナ":"弓","コレイ":"弓","ティナリ":"弓","セトス":"弓","ゴロー":"弓","シグウィン":"弓","エミリエ":"長柄武器","リンネア":"弓","アーロイ":"弓","クレー":"法器","煙緋":"法器","バーバラ":"法器","モナ":"法器","珊瑚宮心海":"法器","ヌヴィレット":"法器","ムアラニ":"法器","スクロース":"法器","鹿野院平蔵":"法器","放浪者":"法器","夢見月瑞希":"法器","リサ":"法器","八重神子":"法器","シャルロット":"法器","リオセスリ":"法器","ナヒーダ":"法器","白朮":"法器","凝光":"法器","シトラリ":"法器","藍硯":"法器","イファ":"法器","ニコ":"法器","エスコフィエ":"長柄武器","コロンビーナ":"法器","ヴォジャニーツァ":"法器","ヤフォダ":"弓","ファルカ":"両手剣","プルーネ":"法器","ヴェスナ":"片手剣","ヴァレサ":"法器","イネファ":"長柄武器","フリンズ":"長柄武器","アリョーシャ":"長柄武器","ラウマ":"法器","ネフェル":"法器","申鶴":"長柄武器","ローエン":"長柄武器","オデット":"片手剣","イルーガ":"長柄武器"};
+const periodHints={"アンバー":"モンド・璃月期（Ver.1.x）","ベネット":"モンド・璃月期（Ver.1.x）","ディルック":"モンド・璃月期（Ver.1.x）","香菱":"モンド・璃月期（Ver.1.x）","クレー":"モンド・璃月期（Ver.1.x）","辛炎":"モンド・璃月期（Ver.1.x）","胡桃":"モンド・璃月期（Ver.1.x）","煙緋":"モンド・璃月期（Ver.1.x）","バーバラ":"モンド・璃月期（Ver.1.x）","モナ":"モンド・璃月期（Ver.1.x）","行秋":"モンド・璃月期（Ver.1.x）","タルタリヤ":"モンド・璃月期（Ver.1.x）","ジン":"モンド・璃月期（Ver.1.x）","スクロース":"モンド・璃月期（Ver.1.x）","ウェンティ":"モンド・璃月期（Ver.1.x）","魈":"モンド・璃月期（Ver.1.x）","北斗":"モンド・璃月期（Ver.1.x）","フィッシュル":"モンド・璃月期（Ver.1.x）","刻晴":"モンド・璃月期（Ver.1.x）","リサ":"モンド・璃月期（Ver.1.x）","レザー":"モンド・璃月期（Ver.1.x）","コレイ":"スメール期（Ver.3.x）","重雲":"モンド・璃月期（Ver.1.x）","ガイア":"モンド・璃月期（Ver.1.x）","七七":"モンド・璃月期（Ver.1.x）","ディオナ":"モンド・璃月期（Ver.1.x）","甘雨":"モンド・璃月期（Ver.1.x）","ロサリア":"モンド・璃月期（Ver.1.x）","エウルア":"モンド・璃月期（Ver.1.x）","凝光":"モンド・璃月期（Ver.1.x）","ノエル":"モンド・璃月期（Ver.1.x）","鍾離":"モンド・璃月期（Ver.1.x）","アルベド":"モンド・璃月期（Ver.1.x）","宵宮":"稲妻期（Ver.2.x）","トーマ":"稲妻期（Ver.2.x）","珊瑚宮心海":"稲妻期（Ver.2.x）","神里綾人":"稲妻期（Ver.2.x）","夜蘭":"稲妻期（Ver.2.x）","楓原万葉":"稲妻期（Ver.2.x）","早柚":"稲妻期（Ver.2.x）","鹿野院平蔵":"稲妻期（Ver.2.x）","九条裟羅":"稲妻期（Ver.2.x）","雷電将軍":"稲妻期（Ver.2.x）","八重神子":"稲妻期（Ver.2.x）","久岐忍":"稲妻期（Ver.2.x）","神里綾華":"稲妻期（Ver.2.x）","アーロイ":"稲妻期（Ver.2.x）","申鶴":"稲妻期（Ver.2.x）","荒瀧一斗":"稲妻期（Ver.2.x）","ゴロー":"稲妻期（Ver.2.x）","雲菫":"稲妻期（Ver.2.x）","ディシア":"スメール期（Ver.3.x）","キャンディス":"スメール期（Ver.3.x）","ニィロウ":"スメール期（Ver.3.x）","ファルザン":"スメール期（Ver.3.x）","放浪者":"スメール期（Ver.3.x）","ドリー":"スメール期（Ver.3.x）","セノ":"スメール期（Ver.3.x）","ナヒーダ":"スメール期（Ver.3.x）","アルハイゼン":"スメール期（Ver.3.x）","ヨォーヨ":"スメール期（Ver.3.x）","白朮":"スメール期（Ver.3.x）","カーヴェ":"スメール期（Ver.3.x）","綺良々":"スメール期（Ver.3.x）","ティナリ":"スメール期（Ver.3.x）","レイラ":"スメール期（Ver.3.x）","ミカ":"スメール期（Ver.3.x）","リネ":"フォンテーヌ期（Ver.4.x）","シュヴルーズ":"フォンテーヌ期（Ver.4.x）","嘉明":"フォンテーヌ期（Ver.4.x）","アルレッキーノ":"フォンテーヌ期（Ver.4.x）","ヌヴィレット":"フォンテーヌ期（Ver.4.x）","フリーナ":"フォンテーヌ期（Ver.4.x）","シグウィン":"フォンテーヌ期（Ver.4.x）","リネット":"フォンテーヌ期（Ver.4.x）","閑雲":"フォンテーヌ期（Ver.4.x）","クロリンデ":"フォンテーヌ期（Ver.4.x）","セトス":"フォンテーヌ期（Ver.4.x）","フレミネ":"フォンテーヌ期（Ver.4.x）","リオセスリ":"フォンテーヌ期（Ver.4.x）","シャルロット":"フォンテーヌ期（Ver.4.x）","ナヴィア":"フォンテーヌ期（Ver.4.x）","千織":"フォンテーヌ期（Ver.4.x）","エミリエ":"フォンテーヌ期（Ver.4.x）","マーヴィカ":"ナタ期（Ver.5.x）","ムアラニ":"ナタ期（Ver.5.x）","ダリア":"ナタ期（Ver.5.x）","チャスカ":"ナタ期（Ver.5.x）","藍硯":"ナタ期（Ver.5.x）","夢見月瑞希":"ナタ期（Ver.5.x）","イファ":"ナタ期（Ver.5.x）","オロルン":"ナタ期（Ver.5.x）","イアンサ":"ナタ期（Ver.5.x）","ヴァレサ":"ナタ期（Ver.5.x）","キィニチ":"ナタ期（Ver.5.x）","カチーナ":"ナタ期（Ver.5.x）","シロネン":"ナタ期（Ver.5.x）","シトラリ":"ナタ期（Ver.5.x）","エスコフィエ":"ナタ期（Ver.5.x）","スカーク":"ナタ期（Ver.5.x）","ドゥリン":"ナド・クライ期（Ver.6.x）","ニコ":"ナド・クライ期（Ver.6.x）","アイノ":"ナド・クライ期（Ver.6.x）","コロンビーナ":"ナド・クライ期（Ver.6.x）","ヴォジャニーツァ":"スネージナヤ期（Ver.7.x）","ヤフォダ":"ナド・クライ期（Ver.6.x）","ファルカ":"ナド・クライ期（Ver.6.x）","プルーネ":"ナド・クライ期（Ver.6.x）","ヴェスナ":"スネージナヤ期（Ver.7.x）","イネファ":"ナタ期（Ver.5.x）","フリンズ":"ナド・クライ期（Ver.6.x）","アリョーシャ":"スネージナヤ期（Ver.7.x）","ラウマ":"ナド・クライ期（Ver.6.x）","ネフェル":"ナド・クライ期（Ver.6.x）","ローエン":"ナド・クライ期（Ver.6.x）","サンドローネ":"ナド・クライ期（Ver.6.x）","オデット":"スネージナヤ期（Ver.7.x）","イルーガ":"ナド・クライ期（Ver.6.x）","兹白":"ナド・クライ期（Ver.6.x）","リンネア":"ナド・クライ期（Ver.6.x）"};
+let selectedHintIndex=-1, showOnlyUnsolved=false;
+const extra=(id)=>document.getElementById(id);
+const toggleExtra=(id)=>{const panel=extra(id);panel.hidden=!panel.hidden;};
+extra('hintToggle').onclick=()=>toggleExtra('hintPanel');
+extra('statsToggle').onclick=()=>{renderStats();toggleExtra('statsPanel');};
+extra('resultToggle').onclick=()=>{renderResult();toggleExtra('resultPanel');};
+extra('filterToggle').onclick=()=>{showOnlyUnsolved=!showOnlyUnsolved;extra('filterToggle').classList.toggle('active',showOnlyUnsolved);refreshFilter();};
+function refreshFilter(){tiles.forEach((t,i)=>t.classList.toggle('hidden-unsolved',showOnlyUnsolved&&solved.has(i)));}
+tiles.forEach((tile,i)=>tile.addEventListener('click',()=>{
+ if(solved.has(i)||ended)return;
+ selectedHintIndex=i;tiles.forEach(t=>t.classList.remove('selected'));tile.classList.add('selected');
+ extra('hintPanel').hidden=false;extra('hintOutput').textContent='選択中：No.'+String(i+1).padStart(3,'0')+' ／ オリジナル／コラボかロールを選んでね。';extra('weaponOutput').hidden=true;extra('periodOutput').hidden=true;
+}));
+hintSeen={weapon:new Set(saved.hints?.weapon||[]),period:new Set(saved.hints?.period||[])};
+function hintCounts(){return {weapon:hintSeen.weapon.size,period:hintSeen.period.size};}
+function saveHintCounts(){saveProgress();}
+const weaponHints=Object.fromEntries(characters.map(c=>[c.name,c.origin]));
+const periodHints=Object.fromEntries(characters.map(c=>[c.name,c.role]));
+function hint(kind){
+ if(selectedHintIndex<0){extra('hintOutput').textContent='先に未回答の「？」マスをタップしてね。';return;}
+ const c=characters[selectedHintIndex];if(solved.has(selectedHintIndex)||ended)return;
+ const type=kind==='weapon'?'weapon':'period';
+ const value=(type==='weapon'?weaponHints:periodHints)[c.name];
+ if(!value){extra('hintOutput').textContent='このヒーローのヒントは登録されていません。';return;}
+ hintSeen[type].add(selectedHintIndex);saveHintCounts();
+ const target=extra(type==='weapon'?'weaponOutput':'periodOutput');
+ target.textContent=(type==='weapon'?'区分：':'ロール：')+value;
+ target.hidden=false;
+ // The other category stays closed; each category is counted independently.
+ extra(type==='weapon'?'periodOutput':'weaponOutput').hidden=true;
+ extra('hintOutput').textContent='区分ヒント '+hintSeen.weapon.size+'回 ／ ロールヒント '+hintSeen.period.size+'回';
+}
+extra('weaponHint').onclick=()=>hint('weapon');extra('regionHint').onclick=()=>hint('region');
+function renderStats(){
+ const all=characters.length;
+ const per=Object.keys(colors).map(e=>{const idx=characters.map((c,i)=>c.role===e?i:-1).filter(i=>i>=0);return '<span>'+e+'：'+idx.filter(i=>solved.has(i)).length+' / '+idx.length+'（'+Math.round(idx.filter(i=>solved.has(i)).length/idx.length*100)+'%）</span>';}).join('');
+ extra('statDetails').innerHTML='<div class="stat-list"><span>正解：'+solved.size+' / '+all+'</span><span>達成率：'+Math.round(solved.size/all*100)+'%</span>'+per+'</div>';
+ extra('statDetails').innerHTML+='<p>区分ヒント '+hintSeen.weapon.size+'回 ／ ロールヒント '+hintSeen.period.size+'回</p>';const best=localStorage.getItem('compass-hero-quiz-best-v1');extra('bestTime').textContent=best?'全問正解の自己ベスト：'+clockText(Number(best)):'全問正解すると自己ベストを記録します。';
+}
+const ranks=[{min:0,name:'駆け出しのヒーロー',color:'#8b9299',desc:'冒険はまだ始まったばかり！'},{min:20,name:'見習い冒険者',color:'#689d83',desc:'コンパスのことが分かってきた！'},{min:40,name:'熟練の冒険者',color:'#6a9ac2',desc:'かなりの原神通！'},{min:60,name:'コンパスの探索者',color:'#a785d2',desc:'ここまで分かるのはすごい！'},{min:80,name:'七国の博識者',color:'#c59b4b',desc:'もはやコンパスの生き字引！'},{min:95,name:'伝説のヒーロー',color:'#d69b4c',desc:'あと少しで完全制覇！'},{min:100,name:'コンパス完全制覇',color:'#e1b45e',desc:'104人全員正解！'}];
+function getRank(p){return [...ranks].reverse().find(r=>p>=r.min)||ranks[0];}
+function renderResult(){
+ const pct=Math.round(solved.size/characters.length*100), time=clockText(elapsed());
+ const rank=getRank(pct),reason=ended?(endReason==='clear'?'全問正解':endReason==='timeout'?'時間切れ':'ギブアップ'):'挑戦中';
+ extra('resultSummary').textContent=reason+'｜'+rank.name+'｜'+solved.size+' / '+characters.length+'人正解（'+pct+'%）｜経過 '+time+'｜区分ヒント '+hintSeen.weapon.size+'回｜ロールヒント '+hintSeen.period.size+'回';
+ const canvas=extra('resultCanvas'),ctx=canvas.getContext('2d');
+ ctx.fillStyle='#f5f0e5';ctx.fillRect(0,0,960,540);
+ ctx.strokeStyle='#b49b68';ctx.lineWidth=5;ctx.strokeRect(22,22,916,496);
+ ctx.textAlign='center';ctx.fillStyle='#8e7a57';ctx.font='25px Georgia,serif';ctx.fillText('HERO ARCHIVE',480,100);
+ ctx.fillStyle='#263a46';ctx.font='bold 46px serif';ctx.fillText('＃コンパス 全ヒーロー言えるかな？',480,175);
+ ctx.fillStyle=rank.color;ctx.font='bold 38px serif';ctx.fillText(rank.name,480,232);ctx.font='bold 88px Georgia,serif';ctx.fillText(solved.size+' / '+characters.length,480,330);
+ ctx.fillStyle='#263a46';ctx.font='30px sans-serif';ctx.fillText('達成率 '+pct+'%　｜　'+time+'　｜　'+reason,480,380);
+ ctx.font='22px sans-serif';ctx.fillText('区分ヒント '+hintSeen.weapon.size+'回　｜　ロールヒント '+hintSeen.period.size+'回',480,426);ctx.font='18px sans-serif';ctx.fillText(rank.desc,480,456);
+ ctx.fillStyle='#8e7a57';ctx.font='18px sans-serif';ctx.fillText('h7fgz669rc-debug.github.io/compass-hero-quiz/',480,493);
+}
+extra('saveResult').onclick=()=>{renderResult();const a=document.createElement('a');a.href=extra('resultCanvas').toDataURL('image/png');a.download='compass-quiz-result.png';a.click();};
+// No time limit. Keep elapsed-time tracking and personal bests.
+setInterval(()=>{if(!extra('statsPanel').hidden)renderStats();if(!extra('resultPanel').hidden)renderResult();refreshFilter();},1000);
+// Track the fastest full clear; do not count a give-up as a clear.
+const previousFinish=finish;
+finish=function(){if(solved.size===characters.length){const t=elapsed(),best=Number(localStorage.getItem('compass-hero-quiz-best-v1')||Infinity);if(t<best)localStorage.setItem('compass-hero-quiz-best-v1',String(t));}previousFinish();};
+renderStats();
+
 </script></body></html>
