@@ -141,7 +141,6 @@ function reveal(i,cls){
  const c=characters[i];const label=tiles[i].querySelector('.name');if(label)label.textContent=cls==='partial'?partialName(c):c.name;
  const img=tiles[i].querySelector('img');
  img.loading='eager';
- const c=characters[i];
  const sources=[c.icon];
  img.dataset.sources=JSON.stringify(sources);
  img.dataset.sourceIndex='0';
