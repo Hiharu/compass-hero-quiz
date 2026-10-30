@@ -229,7 +229,7 @@ function renderStats(){
  extra('statDetails').innerHTML='<div class="stat-list"><span>正解：'+solved.size+' / '+all+'</span><span>達成率：'+Math.round(solved.size/all*100)+'%</span>'+per+'</div>';
  extra('statDetails').innerHTML+='<p>区分ヒント '+hintSeen.weapon.size+'回 ／ ロールヒント '+hintSeen.period.size+'回</p>';const best=localStorage.getItem('compass-hero-quiz-best-v1');extra('bestTime').textContent=best?'全問正解の自己ベスト：'+clockText(Number(best)):'全問正解すると自己ベストを記録します。';
 }
-const ranks=[{min:0,name:'駆け出しのヒーロー',color:'#8b9299',desc:'冒険はまだ始まったばかり！'},{min:20,name:'見習い冒険者',color:'#689d83',desc:'コンパスのことが分かってきた！'},{min:40,name:'熟練の冒険者',color:'#6a9ac2',desc:'かなりの原神通！'},{min:60,name:'コンパスの探索者',color:'#a785d2',desc:'ここまで分かるのはすごい！'},{min:80,name:'七国の博識者',color:'#c59b4b',desc:'もはやコンパスの生き字引！'},{min:95,name:'伝説のヒーロー',color:'#d69b4c',desc:'あと少しで完全制覇！'},{min:100,name:'コンパス完全制覇',color:'#e1b45e',desc:'104人全員正解！'}];
+const ranks=[{min:0,name:'駆け出しのヒーロー',color:'#8b9299',desc:'冒険はまだ始まったばかり！'},{min:20,name:'見習いヒーロー',color:'#689d83',desc:'ヒーローたちが分かってきた！'},{min:40,name:'熟練プレイヤー',color:'#6a9ac2',desc:'かなりのコンパス通！'},{min:60,name:'コンパスの探索者',color:'#a785d2',desc:'ここまで分かるのはすごい！'},{min:80,name:'ヒーローマスター',color:'#c59b4b',desc:'コンパスの生き字引！'},{min:95,name:'伝説のヒーロー',color:'#d69b4c',desc:'あと少しで完全制覇！'},{min:100,name:'コンパス完全制覇',color:'#e1b45e',desc:'104人全員正解！'}];
 function getRank(p){return [...ranks].reverse().find(r=>p>=r.min)||ranks[0];}
 function renderResult(){
  const pct=Math.round(solved.size/characters.length*100), time=clockText(elapsed());
